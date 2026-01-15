@@ -42,7 +42,7 @@ export const todoApi = {
 
   // Create a new todo
   createTodo: async (todo: Omit<Todo, 'id'>): Promise<Todo> => {
-    const response = await fetch(`${API_BASE_URL}/api/todos`, {
+    const response = await fetch(`${API_BASE_URL}/api/todos/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

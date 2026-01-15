@@ -65,7 +65,9 @@ def get_todos(
 
     query = query.offset(offset).limit(limit)
 
-    return session.execute(query).all()
+    result = session.execute(query)
+    todos = result.scalars().all()
+    return todos
 
 def update_todo(session: Session, todo_id: int, todo_update: TodoUpdate) -> Optional[Todo]:
     db_todo = session.get(Todo, todo_id)
