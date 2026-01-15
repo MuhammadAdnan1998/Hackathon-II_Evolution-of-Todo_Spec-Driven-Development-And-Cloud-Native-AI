@@ -8,7 +8,14 @@
       "Bash(mkdir:*)",
       "Bash(powershell.exe:*)",
       "Bash(uv init)",
-      "Bash(python -m unittest:*)"
+      "Bash(python -m unittest:*)",
+      "Bash(git rev-parse --git-dir)",
+      "Bash(npx next dev)",
+      "Bash(python main.py)",
+      "Bash(pip install -r requirements.txt)",
+      "Bash(node -e \"console.log\\(require\\(''crypto''\\).randomBytes\\(32\\).toString\\(''hex''\\)\\)\")",
+      "Bash(venvScriptsactivate)",
+      "Bash(./venv/Scripts/activate)"
     ]
   }
 }
