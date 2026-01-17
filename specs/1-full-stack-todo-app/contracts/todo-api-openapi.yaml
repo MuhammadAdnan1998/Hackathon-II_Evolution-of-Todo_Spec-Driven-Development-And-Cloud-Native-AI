@@ -1,0 +1,268 @@
+# OpenAPI Specification: Todo API
+
+openapi: 3.0.0
+info:
+  title: Todo API
+  description: API for managing todo items in the Full-Stack Todo Web Application
+  version: 1.0.0
+  contact:
+    name: Development Team
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+  - url: https://api.todoapp.com
+    description: Production server
+
+paths:
+  /api/todos:
+    get:
+      summary: List all todos
+      description: Retrieve a list of todos with optional filtering and sorting
+      parameters:
+        - name: completed
+          in: query
+          description: Filter by completion status
+          required: false
+          schema:
+            type: boolean
+        - name: priority
+          in: query
+          description: Filter by priority level
+          required: false
+          schema:
+            type: string
+            enum: [low, medium, high]
+        - name: search
+          in: query
+          description: Search todos by title
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Maximum number of results to return
+          required: false
+          schema:
+            type: integer
+            default: 100
+        - name: offset
+          in: query
+          description: Number of results to skip
+          required: false
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of todos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  todos:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Todo'
+                  total:
+                    type: integer
+        '500':
+          description: Internal server error
+
+    post:
+      summary: Create a new todo
+      description: Create a new todo item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTodoRequest'
+      responses:
+        '201':
+          description: Todo created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '400':
+          description: Invalid input
+        '500':
+          description: Internal server error
+
+  /api/todos/{id}:
+    get:
+      summary: Get a specific todo
+      description: Retrieve a specific todo by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Todo ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Todo details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '404':
+          description: Todo not found
+        '500':
+          description: Internal server error
+
+    put:
+      summary: Update a todo
+      description: Update an existing todo item
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Todo ID
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTodoRequest'
+      responses:
+        '200':
+          description: Todo updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '400':
+          description: Invalid input
+        '404':
+          description: Todo not found
+        '500':
+          description: Internal server error
+
+    delete:
+      summary: Delete a todo
+      description: Delete an existing todo item
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Todo ID
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Todo deleted successfully
+        '404':
+          description: Todo not found
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    Todo:
+      type: object
+      required:
+        - id
+        - title
+        - completed
+        - priority
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the todo
+          example: 1
+        title:
+          type: string
+          description: The main text content of the todo
+          example: "Buy groceries"
+          minLength: 1
+          maxLength: 255
+        completed:
+          type: boolean
+          description: Indicates whether the todo is completed
+          example: false
+        priority:
+          type: string
+          description: Priority level of the todo
+          enum: [low, medium, high]
+          example: "medium"
+        tags:
+          type: string
+          description: JSON string representation of tags
+          example: '["shopping", "urgent"]'
+          nullable: true
+        due_date:
+          type: string
+          format: date-time
+          description: Deadline for the todo completion
+          example: "2023-12-31T23:59:59Z"
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the todo was created
+          example: "2023-01-01T00:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the todo was last modified
+          example: "2023-01-01T00:00:00Z"
+
+    CreateTodoRequest:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          description: The main text content of the todo
+          example: "Buy groceries"
+          minLength: 1
+          maxLength: 255
+        priority:
+          type: string
+          description: Priority level of the todo
+          enum: [low, medium, high]
+          default: "medium"
+        tags:
+          type: string
+          description: JSON string representation of tags
+          example: '["shopping", "urgent"]'
+        due_date:
+          type: string
+          format: date-time
+          description: Deadline for the todo completion
+          example: "2023-12-31T23:59:59Z"
+
+    UpdateTodoRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The main text content of the todo
+          example: "Buy groceries"
+          minLength: 1
+          maxLength: 255
+        completed:
+          type: boolean
+          description: Indicates whether the todo is completed
+          example: false
+        priority:
+          type: string
+          description: Priority level of the todo
+          enum: [low, medium, high]
+          example: "high"
+        tags:
+          type: string
+          description: JSON string representation of tags
+          example: '["shopping", "urgent"]'
+        due_date:
+          type: string
+          format: date-time
+          description: Deadline for the todo completion
+          example: "2023-12-31T23:59:59Z"
