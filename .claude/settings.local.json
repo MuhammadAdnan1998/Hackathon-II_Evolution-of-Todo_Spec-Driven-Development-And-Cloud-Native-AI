@@ -15,7 +15,25 @@
       "Bash(pip install -r requirements.txt)",
       "Bash(node -e \"console.log\\(require\\(''crypto''\\).randomBytes\\(32\\).toString\\(''hex''\\)\\)\")",
       "Bash(venvScriptsactivate)",
-      "Bash(./venv/Scripts/activate)"
+      "Bash(./venv/Scripts/activate)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd full-stack Todo application with Next.js frontend and FastAPI backend\n\n- Implemented complete full-stack Todo application\n- Added Next.js frontend with TypeScript\n- Added FastAPI backend with SQLModel and database integration\n- Created API endpoints for CRUD operations\n- Added responsive UI components for todo management\n- Included environment configuration files\n- Added testing infrastructure\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(curl -H \"Origin: http://localhost:3004\" -H \"Accept: application/json\" http://localhost:8004/api/todos/)",
+      "Bash(npm run dev)",
+      "Bash(curl -X POST http://localhost:8004/api/todos/ -H \"Content-Type: application/json\" -d \"{\"\"title\"\":\"\"Test Todo After All Fixes\"\",\"\"completed\"\":false,\"\"priority\"\":\"\"medium\"\"}\")",
+      "Bash(npm install)",
+      "Bash(curl -X POST \"http://localhost:8004/api/todos/\" -H \"Content-Type: application/json\" -d \"{\"\"title\"\":\"\"Test Todo\"\",\"\"completed\"\":false,\"\"priority\"\":\"\"medium\"\"}\")",
+      "Bash(curl -X GET \"http://localhost:8004/api/todos/\")",
+      "Bash(curl -X POST \"http://localhost:8004/api/todos/\" -H \"Content-Type: application/json\" -d \"{\"\"title\"\":\"\"Test Todo From Frontend\"\",\"\"completed\"\":false,\"\"priority\"\":\"\"medium\"\",\"\"due_date\"\":\"\"\"\"}\")",
+      "Bash(curl -X POST \"http://localhost:8004/api/todos/\" -H \"Content-Type: application/json\" -d \"{\"\"title\"\":\"\"Test Todo With Null Date\"\",\"\"completed\"\":false,\"\"priority\"\":\"\"medium\"\",\"\"due_date\"\":null}\")",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(taskkill /PID 3528 /F)",
+      "Bash(python -c \"import sys; print\\(sys.version\\)\")",
+      "Bash(netstat -ano)",
+      "Bash(tasklist /FI \"PID eq 21588\")",
+      "Bash(wmic process where processid=21588 get name)",
+      "Skill(sp.phr)",
+      "Bash(git config user.name)",
+      "Bash(git add .)"
     ]
   }
 }

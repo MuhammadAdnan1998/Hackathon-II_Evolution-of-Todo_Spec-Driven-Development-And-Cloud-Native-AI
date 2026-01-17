@@ -21,7 +21,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ onSubmit, initialTodo, onCancel }) 
       completed,
       priority,
       tags: tags || null,
-      due_date: dueDate || null,
+      due_date: dueDate.trim() === '' ? null : dueDate,
     });
   };
 

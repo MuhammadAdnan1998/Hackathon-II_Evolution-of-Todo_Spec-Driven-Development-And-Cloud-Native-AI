@@ -33,7 +33,7 @@ export const todoApi = {
       });
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/todos?${queryParams}`);
+    const response = await fetch(`${API_BASE_URL}/api/todos/?${queryParams}`);
     if (!response.ok) {
       throw new Error(`Failed to fetch todos: ${response.status}`);
     }
